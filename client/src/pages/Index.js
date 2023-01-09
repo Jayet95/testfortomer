@@ -1,17 +1,25 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Paper, TextField, Button } from "@mui/material";
-import { getImgs } from "../services/image.service";
+import { getImgs, createImg } from "../services/image.service";
 import ImageCard from "../cards/ImageCard";
 const Index = () => {
   const titleInputRef = useRef(null);
   const imageUrlInputRef = useRef(null);
-
+  const [image, setImage] = useState([]);
   function handleClick(e) {
     e.preventDefault();
-    console.log(titleInputRef.current.value);
+    async function createImage() {
+      const data = await createImg(
+        titleInputRef.current.value,
+        imageUrlInputRef.current.value
+      );
+      titleInputRef.current.value = "";
+      imageUrlInputRef.current.value = "";
+    }
+
+    createImage();
   }
 
-  const [image, setImage] = useState([]);
   useEffect(() => {
     async function fetchImages() {
       const data = await getImgs();
