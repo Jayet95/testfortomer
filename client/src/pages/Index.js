@@ -1,16 +1,26 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Paper, TextField, Button } from "@mui/material";
-
+import { getImgs } from "../services/image.service";
+import ImageCard from "../cards/ImageCard";
 const Index = () => {
   const titleInputRef = useRef(null);
   const imageUrlInputRef = useRef(null);
 
   function handleClick(e) {
     e.preventDefault();
-    console.log(
-      `${titleInputRef.current.value} ${imageUrlInputRef.current.value}`
-    );
+    console.log(titleInputRef.current.value);
   }
+
+  const [image, setImage] = useState([]);
+  useEffect(() => {
+    async function fetchImages() {
+      const data = await getImgs();
+
+      setImage(data);
+    }
+    fetchImages();
+  }, []);
+
   return (
     <div>
       <Paper>
@@ -22,6 +32,10 @@ const Index = () => {
           </Button>
         </form>
       </Paper>
+
+      {image.map((image) => (
+        <ImageCard image={image} key={image._id} />
+      ))}
     </div>
   );
 };
