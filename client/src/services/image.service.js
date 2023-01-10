@@ -7,11 +7,11 @@ const api = axios.create({
   timeout: 1000,
 });
 
-export const deleteImg = async (_id) => {
+export const deleteImg = async (id) => {
   try {
-    const response = await api.delete("/img/delete", { _id });
-    console.log(response);
-    return response;
+    const response = await api.delete(`/img/delete`, id);
+
+    return response.data;
   } catch (error) {
     return Promise.reject(error);
   }
@@ -20,7 +20,7 @@ export const deleteImg = async (_id) => {
 export const createImg = async (title, imageUrl) => {
   try {
     const response = await api.post("/img/create", { title, imageUrl });
-    console.log(response);
+
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -28,6 +28,6 @@ export const createImg = async (title, imageUrl) => {
 };
 export const getImgs = async () => {
   const { data } = await api.get("/img/all");
-  console.log(data);
+
   return data.data;
 };

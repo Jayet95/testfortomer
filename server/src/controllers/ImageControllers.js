@@ -14,8 +14,8 @@ exports.create = async (req, res) => {
 };
 exports.delete = async (req, res) => {
   try {
-    const { _id } = req.body;
-    await Image.findByIdAndDelete({ _id });
+    const { title } = req.body;
+    await Image.findOneAndDelete(title);
     const images = await Image.find();
     res.status(200).json({ success: true, data: images });
   } catch (error) {

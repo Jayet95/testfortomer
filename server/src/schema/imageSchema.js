@@ -1,7 +1,6 @@
 const { Schema, model, SchemaTypes } = require("mongoose");
 const uuid = require("uuid");
 const imageSchema = new Schema({
-  id: { type: String, format: uuid.v4 },
   title: {
     type: String,
     required: true,

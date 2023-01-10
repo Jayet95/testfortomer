@@ -1,20 +1,11 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { deleteImg } from "../services/image.service";
-import {
-  CardContainer,
-  CardData,
-  CardMedia,
-  CardTitle,
-  CharacterStatus,
-  CharacterCardPropertyLabel,
-  CharacterCardPropertyValue,
-} from "./CharacterCard.style";
+import { CardMedia } from "./ImageCard.style";
 
-function deleteOnClick() {
-  async function deleteImage(_id) {
-    const data = await deleteImg(_id);
-    console.log(data);
+function handleClick() {
+  async function deleteImage(id) {
+    const data = await deleteImg(id);
   }
 
   deleteImage();
@@ -25,11 +16,7 @@ const ImageCard = ({ image }) => {
     <div>
       {image.title}
       <CardMedia src={image.imageUrl} />
-      <Button
-        _id={image._id}
-        onClick={() => deleteOnClick(image._id)}
-        variant="contained"
-      >
+      <Button id={image._id} onClick={handleClick} variant="contained">
         Delete
       </Button>
     </div>
