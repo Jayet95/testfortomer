@@ -5,27 +5,29 @@ import ImageCard from "../cards/ImageCard";
 const Index = () => {
   const titleInputRef = useRef(null);
   const imageUrlInputRef = useRef(null);
-  const [image, setImage] = useState([]);
-  function handleClick(e) {
-    e.preventDefault();
-    async function createImage() {
-      const data = await createImg(
-        titleInputRef.current.value,
-        imageUrlInputRef.current.value
-      );
-      titleInputRef.current.value = "";
-      imageUrlInputRef.current.value = "";
-    }
+  const [images, setImages] = useState([]);
 
-    createImage();
+  async function handleClick(e) {
+    e.preventDefault();
+    // async function createImage() {
+    await createImg(
+      titleInputRef.current.value,
+      imageUrlInputRef.current.value
+    );
+    titleInputRef.current.value = "";
+    imageUrlInputRef.current.value = "";
+    // }
+
+    fetchImages();
+    // createImage();
   }
 
-  useEffect(() => {
-    async function fetchImages() {
-      const data = await getImgs();
+  async function fetchImages() {
+    const data = await getImgs();
 
-      setImage(data);
-    }
+    setImages(data);
+  }
+  useEffect(() => {
     fetchImages();
   }, []);
 
@@ -41,8 +43,8 @@ const Index = () => {
         </form>
       </Paper>
 
-      {image.map((image) => (
-        <ImageCard image={image} key={image._id} />
+      {images.map((image) => (
+        <ImageCard fetchImages={fetchImages} image={image} key={image._id} />
       ))}
     </div>
   );

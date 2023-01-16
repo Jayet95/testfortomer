@@ -3,15 +3,15 @@ import { Button } from "@mui/material";
 import { deleteImg } from "../services/image.service";
 import { CardMedia } from "./ImageCard.style";
 
-function handleClick() {
-  async function deleteImage(id) {
-    const data = await deleteImg(id);
-  }
-
-  deleteImage();
+async function deleteImage(id) {
+  const data = await deleteImg(id);
 }
 
-const ImageCard = ({ image }) => {
+const ImageCard = ({ image, fetchImages }) => {
+  function handleClick() {
+    deleteImage();
+    fetchImages();
+  }
   return (
     <div>
       {image.title}
