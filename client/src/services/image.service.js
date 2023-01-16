@@ -9,9 +9,9 @@ const api = axios.create({
 
 export const deleteImg = async (id) => {
   try {
-    const response = await api.delete(`/img/delete`, id);
+    const { data } = await api.delete(`/img/delete`, id);
 
-    return response.data;
+    return data.data;
   } catch (error) {
     return Promise.reject(error);
   }

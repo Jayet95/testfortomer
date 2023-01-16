@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Paper, TextField, Button } from "@mui/material";
 import { getImgs, createImg } from "../services/image.service";
 import ImageCard from "../cards/ImageCard";
+import { deleteImg } from "../services/image.service";
 const Index = () => {
   const titleInputRef = useRef(null);
   const imageUrlInputRef = useRef(null);
@@ -21,12 +22,17 @@ const Index = () => {
     fetchImages();
     // createImage();
   }
-
   async function fetchImages() {
     const data = await getImgs();
 
     setImages(data);
   }
+  async function deleteImage(id) {
+    const data = await deleteImg(id);
+
+    setImages(data);
+  }
+
   useEffect(() => {
     fetchImages();
   }, []);
@@ -44,7 +50,12 @@ const Index = () => {
       </Paper>
 
       {images.map((image) => (
-        <ImageCard fetchImages={fetchImages} image={image} key={image._id} />
+        <ImageCard
+          image={image}
+          key={image._id}
+          deleteImage={deleteImage}
+          fetchImages={fetchImages}
+        />
       ))}
     </div>
   );

@@ -1,16 +1,15 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { deleteImg } from "../services/image.service";
+
 import { CardMedia } from "./ImageCard.style";
 
-async function deleteImage(id) {
-  const data = await deleteImg(id);
-}
+// async function deleteImage(id) {
+//   const data = await deleteImg(id);
+// }
 
-const ImageCard = ({ image, fetchImages }) => {
+const ImageCard = ({ image, fetchImages, deleteImage }) => {
   function handleClick() {
     deleteImage();
-    fetchImages();
   }
   return (
     <div>
